@@ -39,6 +39,14 @@
     <h1>{{user}}</h1>
     {% endif %}
     <h1>HOME</h1>
+    <form method="post">
+        {% csrf_token %}
+
+        {{ form.name }}
+        {{form.description}}
+        {{form.file}}
+        <button name="add-friend">Добавить в друзья</button>
+    </form>
 </main>
 </body>
 </html>
