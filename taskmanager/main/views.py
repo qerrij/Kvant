@@ -5,11 +5,26 @@ from .forms import CreationProject
 
 
 def index(request):
+    if request.method == 'POST':
+        form = CreationProject(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.save()
+    else:
+        form = CreationProject()
     return render(request, 'main/index.html')
 
 
-def about(request):
-    return render(request, 'main/about-us.html')
+def personal_area(request):
+    if request.method == 'POST':
+        form = CreationProject(request.POST, request.FILES)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.save()
+    else:
+        form = CreationProject()
+    return render(request,  'main/about-us.html', {'form': form})
+
 
 
 def user_logout(request):
@@ -23,12 +38,4 @@ def handle_uploaded_file(f):
             destination.write(chunk)
 
 
-def upload_file(request):
-    if request.method == 'POST':
-        form = CreationProject(request.POST, request.FILES)
-        if form.is_valid():
-            handle_uploaded_file(request.FILES['file'])
-            return HttpResponseRedirect('/success/url/')
-    else:
-        form = CreationProject()
-    return render(request, 'main/index.html', {'form': form})
+# def upload_file(request):
