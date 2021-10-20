@@ -36,6 +36,10 @@
     </header>
 <main>
     <h1>HOME</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.friend }}
+    </form>
 </main>
 </body>
 </html>
